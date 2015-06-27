@@ -4,6 +4,11 @@ Balance in Wallet: £<%= current_user.balance/100%>
 	<input type='text' name='amount'>
 	<input type='submit'>
 </form>
+
+<form action='/withdrawls' method='post'>
+	<input type='text' name='amount'>
+	<input type='submit'>
+</form>
     <% else %>
 	 Please log in 
 

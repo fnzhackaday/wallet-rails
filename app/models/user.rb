@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :transactions
   has_many :charges
+  has_many :withdrawls
   before_save :default_values
   def default_values
     self.balance ||= 0
