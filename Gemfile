@@ -23,6 +23,10 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
+gem 'dotenv'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -42,5 +46,21 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  gem 'rspec-rails'
+
+  gem 'capybara'
+
+  gem 'rspec-collection_matchers'
+
+  gem 'shoulda'
+
+  gem 'capybara'
+  gem 'capybara-webkit'
+
+  gem 'database_cleaner'
+
+  gem 'selenium-webdriver'
+
 end
 
