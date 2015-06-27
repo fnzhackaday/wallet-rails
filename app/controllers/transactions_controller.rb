@@ -1,31 +1,18 @@
 class TransactionsController < ApplicationController
-  def new
-    @transaction = Transaction.new
-  end
+  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
 
   def create
-    @transaction = current_user.transactions.new(transaction_params)
-    if User.where(email: @transaction.recipient_id).first
-      id = User.where(email: @transaction.recipient_id).first.id
-      @transaction.recipient_id = id
-      if @transaction.save
-        recipient = User.find(@transaction.recipient_id)
-        recipient_old_balance = recipient.balance
-        recipient_new_balance = recipient_old_balance + @transaction.amount
-        recipient.update(balance: recipient_new_balance)
-        old_balance = current_user.balance
-        new_balance = old_balance - @transaction.amount
-        current_user.update(balance: new_balance)
-      else
-        "No"
-      end
-    else
-      "No"
-    end
-    redirect_to new_transaction_path
+    @amount = with_pence(params[:amount])
+    @recipient = User.where(email: params[:recipient_id]).first
+    @transaction = current_user.transactions.create(amount: @amount, recipient_id: @recipient.id)
+      recipient_old_balance = @recipient.balance
+      recipient_new_balance = recipient_old_balance + @transaction.amount
+      @recipient.update(balance: recipient_new_balance)
+      old_balance = current_user.balance
+      new_balance = old_balance - @transaction.amount
+      current_user.update(balance: new_balance)
+    redirect_to root_path
   end
 
-  def transaction_params
-    params.require(:transaction).permit(:amount, :recipient_id)
-  end
 end

@@ -1,14 +1,21 @@
 <% if current_user %>
-Balance in Wallet: £<%= current_user.balance/100%>
+Balance in Wallet: <%= @balance %> $
 <form action='/charges/new' method='get'>
-	<input type='text' name='amount'>
+	<input type='text' name='amount' placeholder="TopUp Ammount">
 	<input type='submit'>
+</form>
+<br>
+<form action='/withdrawls' method='post'>
+	<input type='text' name='amount' placeholder="Withdrawl Ammount">
+	<input type='submit'>
+</form>
+<br>
+<form action='/transactions' method='post'>
+  <input type='text' name='recipient_id' placeholder="Recipient Email">
+  <input type='text' name='amount' placeholder="Ammount">
+  <input type='submit'>
 </form>
 
-<form action='/withdrawls' method='post'>
-	<input type='text' name='amount'>
-	<input type='submit'>
-</form>
     <% else %>
 	 Please log in 
 

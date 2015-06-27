@@ -1,14 +1,14 @@
 class ChargesController < ApplicationController
   before_action :authenticate_user!
 
-
   def new
-    @amount = params[:amount]
-    Rails.cache.write("amount", params[:amount])
+    @amount = with_pence(params[:amount])
+    @display_amount = params[:amount]
+    Rails.cache.write("amount", @amount)
   end
 
   def create
-    @amount = Rails.cache.read("amount").to_i
+    @amount = Rails.cache.read("amount")
     old_balance = current_user.balance
     new_balance = old_balance + @amount
 
@@ -26,7 +26,7 @@ class ChargesController < ApplicationController
 
     @charge = current_user.charges.create(amount: @amount)
     current_user.update(balance: new_balance)
-
+    redirect_to root_path
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to root_path
