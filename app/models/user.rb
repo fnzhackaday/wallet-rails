@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :transactions
+  has_many :charges
   before_save :default_values
   def default_values
     self.balance ||= 0

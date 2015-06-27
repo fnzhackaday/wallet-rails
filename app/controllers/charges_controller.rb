@@ -24,6 +24,7 @@ class ChargesController < ApplicationController
       :currency    => 'usd'
     )
 
+    @charge = current_user.charges.create(amount: @amount)
     current_user.update(balance: new_balance)
 
   rescue Stripe::CardError => e

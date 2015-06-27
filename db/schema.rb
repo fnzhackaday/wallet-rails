@@ -11,12 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627140241) do
+ActiveRecord::Schema.define(version: 20150627152051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-<<<<<<< HEAD
+  create_table "charges", force: :cascade do |t|
+    t.integer  "amount"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "charges", ["user_id"], name: "index_charges_on_user_id", using: :btree
+
   create_table "transactions", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "recipient_email"
@@ -26,16 +34,6 @@ ActiveRecord::Schema.define(version: 20150627140241) do
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
-=======
-  create_table "charges", force: :cascade do |t|
-    t.integer  "amount"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "charges", ["user_id"], name: "index_charges_on_user_id", using: :btree
->>>>>>> dev
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -50,16 +48,12 @@ ActiveRecord::Schema.define(version: 20150627140241) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.integer  "description"
     t.integer  "balance"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-<<<<<<< HEAD
-  add_foreign_key "transactions", "users"
-=======
   add_foreign_key "charges", "users"
->>>>>>> dev
+  add_foreign_key "transactions", "users"
 end
