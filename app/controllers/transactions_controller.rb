@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    @transaction = Transaction.new(transaction_params)
+    @transaction = current_user.transactions.new(transaction_params)
     if @transaction.save
       recipient = User.where(email: @transaction.recipient_email).first
       recipient_old_balance = recipient.balance
@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController
       new_balance = old_balance - @transaction.amount
       current_user.update(balance: new_balance)
     else
-      No no
+      "No"
     end
     redirect_to new_transaction_path
   end
