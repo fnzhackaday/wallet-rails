@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   has_many :charges
   has_many :withdrawls
   before_save :default_values
+
+  validates :balance, :numericality => { :greater_than => 0 }
   def default_values
     self.balance ||= 0
   end
