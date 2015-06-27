@@ -1,0 +1,10 @@
+<% if current_user %>
+Balance in Wallet: £<%= current_user.balance/100%>
+<form action='/charges/new' method='get'>
+	<input type='text' name='amount'>
+	<input type='submit'>
+</form>
+    <% else %>
+	 Please log in 
+
+	 <% end %>
