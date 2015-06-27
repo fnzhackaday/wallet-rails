@@ -1,11 +1,14 @@
 class ChargesController < ApplicationController
   before_action :authenticate_user!
 
+
   def new
+    @amount = params[:amount]
+    Rails.cache.write("amount", params[:amount])
   end
 
   def create
-    @amount = 500
+    @amount = Rails.cache.read("amount").to_i
     old_balance = current_user.balance
     new_balance = old_balance + @amount
 
