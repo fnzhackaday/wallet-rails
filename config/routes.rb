@@ -58,5 +58,5 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-  root to: "welcome#index"
+  root to: "charges#index"
 end
