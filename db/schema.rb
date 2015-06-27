@@ -27,10 +27,10 @@ ActiveRecord::Schema.define(version: 20150627153115) do
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "recipient_email"
+    t.string   "recipient_id"
     t.integer  "amount"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "transactions", ["user_id"], name: "index_transactions_on_user_id", using: :btree
