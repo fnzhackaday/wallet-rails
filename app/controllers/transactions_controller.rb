@@ -5,9 +5,9 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = current_user.transactions.new(transaction_params)
+    id = User.where(email: @transaction.recipient_id).first.id
+    @transaction.recipient_id = id
     if @transaction.save
-      id = User.where(email: @transaction.recipient_id).first.id
-      @transaction.update(recipient_id: id)
       recipient = User.find(@transaction.recipient_id)
       recipient_old_balance = recipient.balance
       recipient_new_balance = recipient_old_balance + @transaction.amount
