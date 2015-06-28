@@ -1,28 +1,27 @@
-
 <% if current_user %>
-<p>Balance in Wallet: $<%= @balance %></p>
+  <p>Balance in Wallet: $<%= @balance %></p>
 
-Top Up:
-
-<form action='/charges/new' method='get'>
-	<input type='text' name='amount' placeholder="Top-Up Amount">
-	<input type='submit'>
-</form>
- <br>
-Withdraw:
-<form action='/withdrawls' method='post'>
-	<input type='text' name='amount' placeholder="Withdrawal Amount">
-	<input type='submit'>
-</form>
-<br>
-Transaction:
-<form action='/transactions' method='post'>
-  <input type='text' name='recipient_id' placeholder="Recipient Email">
-  <input type='text' name='amount' placeholder="Amount">
-  <input type='submit'>
-</form>
+  Top Up:
+  <form action='/charges/new' method='get'>
+  	<input type='text' name='amount' placeholder="Top-Up Amount">
+  	<input type='submit'>
+  </form>
+   <br>
+  Withdraw:
+  <form action='/withdrawls' method='post'>
+  	<input type='text' name='amount' placeholder="Withdrawal Amount">
+  	<input type='submit'>
+  </form>
+  <br>
+  Transaction:
+  <form action='/transactions' method='post'>
+    <input type='text' name='recipient_id' placeholder="Recipient Email">
+    <input type='text' name='amount' placeholder="Amount">
+    <input type='submit'>
+  </form>
 
 <% else %>
-Please log in 
-
+  Please log in:
+  <p><%= link_to "Sign in", new_user_session_path %></p>
+  <p><%= link_to "Sign up", new_user_registration_path %></p>
 <% end %>
